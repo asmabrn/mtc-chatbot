@@ -250,23 +250,7 @@
             filter:
                 drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(59, 130, 246, 0.4));
             transform-style: preserve-3d;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0) rotateX(0) rotateY(0);
-            }
-
-            33% {
-                transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
-            }
-
-            66% {
-                transform: translateY(10px) rotateX(-5deg) rotateY(-5deg);
-            }
+            /* Animation float supprimée */
         }
 
         #loading {
@@ -1157,7 +1141,7 @@
                 réponse: `<div class="message-content">
                 <p><strong>Absolutely.</strong></p>
                 <p>You can access the full technical sheet via the following link:</p>
-                <p><strong>www.man-mtc.com/FT</strong></p>
+                <p><a href="http://www.man-mtc.com/FT" target="_blank" style="color: #3b82f6; text-decoration: none; font-weight: bold;">www.man-mtc.com/FT</a></p>
                 <p>Or contact our commercial department directly at: <strong>023 45 09 66</strong></p>
                 <p>One of our advisors will be happy to assist you and send you the full documentation.</p>
                 <p>Would you like me to prepare a quotation or check the estimated delivery time?</p>
@@ -1348,7 +1332,7 @@
         </div>`;
         }
 
-        // Initialisation de la scène 3D (reste inchangée)
+        // Initialisation de la scène 3D - SANS ANIMATION
         window.addEventListener('load', function () {
             const scene = new THREE.Scene();
             scene.background = null;
@@ -1435,17 +1419,8 @@
 
                         if (mixer) {
                             mixer.update(delta);
-                        } else {
-                            model.rotation.y += 0.003;
                         }
-
-                        if (isTyping && model) {
-                            const time = Date.now() * 0.001;
-                            model.rotation.y = Math.sin(time) * 0.1;
-                            model.position.y = baseYPosition;
-                        } else if (model) {
-                            model.position.y = baseYPosition;
-                        }
+                        // Supprimé toutes les animations de rotation et de position
 
                         renderer.render(scene, camera);
                     }
@@ -1475,7 +1450,7 @@
             );
         });
 
-        // Fonction pour créer un avatar de secours (reste inchangée)
+        // Fonction pour créer un avatar de secours - SANS ANIMATION
         function createFallbackAvatar(scene, renderer, camera, container) {
             const bodyGeometry = new THREE.CapsuleGeometry(0.7, 1.4, 4, 8);
             const bodyMaterial = new THREE.MeshPhongMaterial({
@@ -1512,8 +1487,7 @@
 
             function animate() {
                 requestAnimationFrame(animate);
-                model.rotation.y += 0.01;
-                model.position.y = baseYPosition;
+                // Supprimé la rotation automatique
                 renderer.render(scene, camera);
             }
             animate();
